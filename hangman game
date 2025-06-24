@@ -1,0 +1,47 @@
+import random
+def hangman():
+    words=["python","javascript","Csharp","computer","microsoft","hard drive","storage"]
+    word_to_guess=random.choice(words)
+    guessed_word=["_"]*len(word_to_guess)
+    max_attempts=5
+    attempts=0
+    guessed_letters=[]
+
+    print("welcome to the hangman guessing word game, you must only guess one letter at a time")
+    print("word: "," ".join(guessed_word))
+    print(f"you have {max_attempts} to guess the word")
+
+    while attempts<max_attempts and "_" in guessed_word:
+        guess=input("\nenter a letter: ").lower()
+        if len(guess)!=1 or not guess.isalpha():
+            print("please enter a single valid letter: ")
+            continue
+
+        if guess in guessed_letters:
+            print("you have already guessed this letter, try a different one")
+            continue
+        guessed_letters.append(guess)
+
+        if guess in word_to_guess:
+            print(f"good guess {guess} is in the word")
+            for i in range(len(word_to_guess)):
+                if word_to_guess[i]==guess:
+                    guessed_word[i]=guess
+
+        else:
+            attempts+=1
+            attempts_left=max_attempts-attempts
+            print(f"unlucky you have {attempts_left} attempts left")
+
+        print("word:","_".join(guessed_word))
+    if "_" not in guessed_word:
+        print(f"congratulations you guessed the word: {word_to_guess}")
+    else:
+        print(f"game over\nthe word was {word_to_guess}")
+
+#calling the function
+hangman()
+
+
+            
+        

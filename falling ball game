@@ -1,0 +1,106 @@
+import turtle
+import time
+import random
+p=turtle.Turtle()
+sc=turtle.Screen()
+sc.bgcolor("white")
+sc.setup(500,600)#width then height(w,h)
+sc.tracer(0)#turn off screen update
+
+#player setup
+p.shape("triangle")
+p.color("red")
+p.up()
+p.goto(0,-200)
+p.setheading(90)
+
+#score display
+score=0
+sd=turtle.Turtle()#score display
+sd.hideturtle()
+sd.up()
+sd.goto(-500,500)
+sd.color("black")
+sd.write(f"score: {score}", font=("Arial",15,"bold"))
+
+#creating the balls
+balls=[]
+game_speed=0.02
+difficulty_increase=0.001
+spawn_interval=2
+last_spawn_time=time.time()
+run=True
+
+#moving the player
+def move_left():
+    x=p.xcor()-30
+    if x>-240:
+        p.setx(x)
+
+def move_right():
+    x=p.xcor()+30
+    if x<240:
+        p.setx(x)
+
+def spawn_balls():
+    ball=turtle.Turtle()
+    ball.up()
+    ball.shape("circle")
+    ball.color(random.choice["red","blue","green","yellow","purple"])
+    ball.goto(random.randint(-240,240),random.randint(-290,250))
+    ball.speed(random.uniform(1,10))
+    if random.random()<0.2:
+        ball.color("black")
+        ball.is_bomb=True
+    else:
+        ball.is_bomb!=True
+    balls.append(ball)
+
+#timer
+
+#updating the score
+def updating_score(point):
+    global score
+    score=score+point#score+=points
+    sd.clear()
+    sd.write(f"score: {score}", font=("Arial",15,"bold"))
+
+#game over function
+def game_over():
+    global run 
+    run = False
+    game_over_display=turtle.Turtle()
+    game_over_display.hideturtle()
+    game_over_display.color("red")
+    game_over_display.write("game over",align="center",font=("Ariel",25,"bold"))
+    sc.update()
+    time.sleep(4)
+    sc.bye()
+    
+#key bindings
+sc.listen()
+sc.onkey(move_left,"Left")
+sc.onkey(move_right,"Right")
+
+while run:
+    sc.update()
+    current_time=time.time()
+    if current_time-last_spawn_time>spawn_interval:
+        spawn_balls()
+        last_spawn_time=current_time
+    
+    for ball in balls[:]:
+        ball.sety(ball.ycor()-ball.speed())
+        if ball.ycor<-250:
+            balls.remove(ball)
+            ball.hide_turtle()
+        if p.distance(ball)<30:
+            if ball.is_bomb:
+               game_over()
+            else:
+                updating_score(10)
+            balls.remove(ball)
+            ball.hide_turtle()
+    game_speed=max(0.005,game_speed-difficulty_increase)
+    spawn_interval=max(0.5,spawn_interval-0.0005)
+    time.sleep(game_speed)

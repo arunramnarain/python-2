@@ -19,7 +19,7 @@ score=0
 sd=turtle.Turtle()#score display
 sd.hideturtle()
 sd.up()
-sd.goto(-500,500)
+sd.goto(-200,260)
 sd.color("black")
 sd.write(f"score: {score}", font=("Arial",15,"bold"))
 
@@ -46,17 +46,18 @@ def spawn_balls():
     ball=turtle.Turtle()
     ball.up()
     ball.shape("circle")
-    ball.color(random.choice["red","blue","green","yellow","purple"])
-    ball.goto(random.randint(-240,240),random.randint(-290,250))
-    ball.speed(random.uniform(1,10))
+    ball.color(random.choice(["red","blue","green","yellow","purple"]))
+    ball.goto(random.randint(-240,240),random.randint(200,250))
+    ball.speed=random.uniform(1,5)
     if random.random()<0.2:
         ball.color("black")
         ball.is_bomb=True
     else:
-        ball.is_bomb!=True
+        ball.is_bomb=False
     balls.append(ball)
 
 #timer
+
 
 #updating the score
 def updating_score(point):
@@ -90,17 +91,17 @@ while run:
         last_spawn_time=current_time
     
     for ball in balls[:]:
-        ball.sety(ball.ycor()-ball.speed())
-        if ball.ycor<-250:
+        ball.sety(ball.ycor()-ball.speed)
+        if ball.ycor() < - 250:
             balls.remove(ball)
-            ball.hide_turtle()
+            ball.hideturtle()
         if p.distance(ball)<30:
             if ball.is_bomb:
                game_over()
             else:
                 updating_score(10)
             balls.remove(ball)
-            ball.hide_turtle()
+            ball.hideturtle()
     game_speed=max(0.005,game_speed-difficulty_increase)
     spawn_interval=max(0.5,spawn_interval-0.0005)
     time.sleep(game_speed)

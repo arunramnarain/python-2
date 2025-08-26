@@ -1,0 +1,24 @@
+#create a dictionary
+sample_dict={"name":"arun","age":14,
+             "city":"London","hobby":"coding"}
+print(sample_dict)
+#number of items
+print(f"\n number of items in sample_dict={len(sample_dict)}\n")
+#get the list of values only 
+print(sample_dict.values(),"\n")
+#get the list of keys only 
+print(sample_dict.keys(),"\n")
+#get the key and value
+print(sample_dict.items(),"\n")
+
+#store a list as the values in a dictionary
+sample_dict["marks"]=[99,97,58,40,95]
+print(sample_dict,"\n")
+#access a value i a list stored in a dictionay
+print(sample_dict["marks"][1],"\n")
+#access a value i a list stored in a dictionay
+print(sample_dict["marks"][4],"\n")
+#access a value i a list stored in a dictionay
+print(sample_dict["hobby"],"\n")
+#access a value i a list stored in a dictionay
+print(sample_dict["marks"],"\n")

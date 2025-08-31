@@ -1,0 +1,15 @@
+books={"physics":20}
+books["physics"]=200
+x=int(input("\nhow many new books would you like to add: "))
+
+for i in range(x):
+    new_book=input("\nenter the book you would like to add: ")
+    price=int(input("how much is the book: "))
+    books[new_book]=price
+    print(f"{new_book} is £{price}")
+
+check=input("\nsay 'yes' if you would like to view the costs of the books(or type 'no' if not): ")
+if check == "yes":
+    print(books.values())
+
+print(books)
